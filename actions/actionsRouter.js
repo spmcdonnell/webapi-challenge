@@ -14,4 +14,16 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db.get(id)
+        .then(action => {
+            res.status(200).json(action);
+        })
+        .catch(error => {
+            res.status(500).json({ error: error, message: 'There was a server error while attempting to retrieve action' });
+        });
+});
+
 module.exports = router;
