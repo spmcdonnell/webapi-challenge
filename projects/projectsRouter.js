@@ -27,6 +27,18 @@ router.get('/:id', (req, res) => {
         });
 });
 
+router.get('/:id/actions', (req, res) => {
+    const id = req.params.id;
+
+    db.getProjectActions(id)
+        .then(actions => {
+            res.status(200).json(actions);
+        })
+        .catch(error => {
+            res.status(500).json({ error: error, message: 'There was a server error while attempting to retrieve project' });
+        });
+});
+
 // POST STUFF
 router.post('/', (req, res) => {
     const newProject = req.body;
